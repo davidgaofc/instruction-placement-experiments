@@ -1,0 +1,6 @@
+{
+  "name": "name",
+  "model": "chatgpt-latest",
+  "run_test": "python3 generator.py",
+  "run_score": "python3 test.py"
+}
