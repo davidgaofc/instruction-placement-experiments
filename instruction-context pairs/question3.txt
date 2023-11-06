@@ -1,0 +1,115 @@
+---------Context------------------
+
+class ContactBook:
+    def __init__(self):
+        self.contacts = {}
+
+    def add_contact(self, name, phone, email):
+        pass
+
+    def list_contacts(self):
+        return "\n".join(f"{n}: {p}, {e}" for n, (p, e) in sorted(self.contacts.items()))
+
+    def search_contact(self, name):
+        return f"{name}: {self.contacts[name][0]}, {self.contacts[name][1]}" if name in self.contacts else "Not found"
+
+    def delete_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+            return f"{name} deleted"
+        return "Contact not found"
+
+    def update_contact_phone(self, name, new_phone):
+        if name in self.contacts:
+            self.contacts[name] = (new_phone, self.contacts[name][1])
+            return f"{name}'s phone updated"
+        return "Contact not found"
+
+    def update_contact_email(self, name, new_email):
+        if name in self.contacts:
+            self.contacts[name] = (self.contacts[name][0], new_email)
+            return f"{name}'s email updated"
+        return "Contact not found"
+
+    def get_contact_details(self, name):
+        if name in self.contacts:
+            phone, email = self.contacts[name]
+            return f"Phone: {phone}, Email: {email}"
+        return "Contact not found"
+
+    def get_all_phones(self):
+        return {n: p for n, (p, e) in self.contacts.items()}
+
+    def get_all_emails(self):
+        return {n: e for n, (p, e) in self.contacts.items()}
+
+----------Instruction 1--------------
+
+Please write the code for the add_contact function. It should save the person's name, phone number, and email. If the name is new, add it. If it's already there, update the phone and email.
+
+----------Instruction 2--------------
+
+Implement the 'add_contact' function in the 'ContactBook' class to manage contacts. The function should check if a name exists in the database and update that contact's phone and email if so. If the name isn't found, it must create and store a new contact entry.
+
+
+----------Instruction 3--------------
+
+Code the 'add_contact' method within 'ContactBook' to handle our contacts' data, confirming whether a name exists in the system. If present, the method updates existing phone and email details. If not, it will initialize and store a new contact's information.
+
+----------Instruction 4--------------
+
+Develop the 'add_contact' method in the 'ContactBook' to maintain the ledger of contacts. If a name is already cataloged, update the existing phone and email. Otherwise, inaugurate a new entry with the provided parameters.
+
+----------Instruction 5--------------
+
+Implement 'add_contact' in 'ContactBook' to regulate the contact directory. This entails validating the presence of a contact's name, updating extant details if necessary, or initializing a new profile with the provided information if not.
+
+----------Test Cases---------------
+
+def test_add_contact():
+    book = ContactBook()
+
+    # Test Case 1: Add a new contact
+    book.add_contact("John Doe", "123-456-7890", "john.doe@example.com")
+    assert book.list_contacts() == "John Doe: 123-456-7890, john.doe@example.com", "Test Case 1 failed"
+
+    # Test Case 2: Add another new contact
+    book.add_contact("Jane Smith", "234-567-8901", "jane.smith@example.com")
+    assert "Jane Smith: 234-567-8901, jane.smith@example.com" in book.list_contacts(), "Test Case 2 failed"
+
+    # Test Case 3: Update an existing contact's phone
+    book.add_contact("John Doe", "987-654-3210", "john.doe@example.com")
+    assert "John Doe: 987-654-3210, john.doe@example.com" in book.list_contacts(), "Test Case 3 failed"
+
+    # Test Case 4: Update an existing contact's email
+    book.add_contact("Jane Smith", "234-567-8901", "jane.smith@newdomain.com")
+    assert "Jane Smith: 234-567-8901, jane.smith@newdomain.com" in book.list_contacts(), "Test Case 4 failed"
+
+    # Test Case 5: Add new contact with different name but existing phone and email
+    book.add_contact("Jim Bean", "987-654-3210", "john.doe@example.com")
+    assert "Jim Bean: 987-654-3210, john.doe@example.com" in book.list_contacts(), "Test Case 5 failed"
+
+    # Test Case 6: Update existing contact with new phone and email
+    book.add_contact("John Doe", "111-222-3333", "johnny.d@example.com")
+    assert "John Doe: 111-222-3333, johnny.d@example.com" in book.list_contacts(), "Test Case 6 failed"
+
+    # Test Case 7: Add a new contact with all new details
+    book.add_contact("Alice Wonderland", "333-444-5555", "alice.w@example.com")
+    assert "Alice Wonderland: 333-444-5555, alice.w@example.com" in book.list_contacts(), "Test Case 7 failed"
+
+    # Test Case 8: Attempt to add existing contact with same details
+    book.add_contact("Alice Wonderland", "333-444-5555", "alice.w@example.com")
+    assert book.list_contacts().count("Alice Wonderland: 333-444-5555, alice.w@example.com") == 1, "Test Case 8 failed"
+
+    # Test Case 9: Add new contact with a name that would sort before the existing
+    book.add_contact("Aaron Aardvark", "999-888-7777", "aaron.a@example.com")
+    assert "Aaron Aardvark: 999-888-7777, aaron.a@example.com" in book.list_contacts(), "Test Case 9 failed"
+
+    # Test Case 10: Update the newly added contact with different phone and email
+    book.add_contact("Aaron Aardvark", "888-777-6666", "aaron.new@aardvark.com")
+    assert "Aaron Aardvark: 888-777-6666, aaron.new@aardvark.com" in book.list_contacts(), "Test Case 10 failed"
+
+    print("All test cases passed!")
+
+# Run the test
+test_add_contact()

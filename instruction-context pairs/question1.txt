@@ -1,0 +1,66 @@
+---------Context------------------
+
+class Node:
+    def __init__(self, v, l=None, r=None):
+        self.val = v; self.left = l; self.right = r
+
+def insert(root, v):
+    if not root: return Node(v)
+    if v < root.val: root.left = insert(root.left, v)
+    else: root.right = insert(root.right, v)
+    return root
+
+def find_next(root, v, succ=None):
+    pass
+
+def build_tree(arr):
+    r = None
+    for x in arr: r = insert(r, x)
+    return r
+
+
+----------Instruction 1--------------
+
+Write a find_next function to get the smallest number bigger than v in a tree. Start at root. If no such number exists, return None.
+
+----------Instruction 2--------------
+
+Create a function find_next that searches for the smallest number larger than v in a binary search tree starting from root. If there isn't one, return None.
+
+----------Instruction 3--------------
+
+Develop the function find_next to identify the smallest element in a binary search tree that remains larger than the given value v. Begin your search at the root. If there doesn't exist a larger element, the implemented function should return None.
+
+----------Instruction 4--------------
+
+Program the find_next function to ascertain the minimal element exceeding the specified v within the binary search tree, initiating the search from root. If a superior element is non-existent, ensure the function outputs None.
+
+----------Instruction 5--------------
+
+Implement the find_next function to systematically traverse the binary search tree from root to uncover the immediate successor element that contains a larger numeric value than the input variable v. The algorithm should meticulously search and discover the next highest integer value within the binary search tree's structure; if such an element is non-existent, the function must generate a None type.
+
+----------Test Cases---------------
+
+test_cases = [
+    ([20, 10, 30, 5, 15, 25, 35], 15, 20),  # Test in-between values
+    ([50, 30, 70, 20, 40, 60, 80], 65, 70),  # Test value between nodes
+    ([40, 20, 10, 30, 60, 50, 70], 40, 50),  # Test exact match
+    ([15, 10, 20, 8, 12, 16, 25], 17, 20),   # Test no direct successor
+    ([10, 5, 3, 7, 20, 15, 30], 20, 30),     # Test right subtree
+    ([30, 20, 40, 10, 25, 35, 50], 25, 30),  # Test left subtree
+    ([5, 3, 8, 2, 4, 6, 10], 1, 2),          # Test lower boundary
+    ([8, 7, 9], 9, None),                    # Test upper boundary
+    ([10, 5, 15, 2, 7, 12, 18, 1], 15, 18),  # Test middle value
+    ([100, 50, 150, 25, 75, 125, 175], 160, 175) # Test value close to upper boundary
+]
+
+def run_tests():
+    for i, (elements, v, expected) in enumerate(test_cases, 1):
+        tree = build_tree(elements)
+        next_node = find_next(tree, v)
+        actual = next_node.val if next_node else None
+        assert actual == expected, f"Test case {i} failed: expected {expected}, got {actual}"
+        print(f"Test case {i} passed.")
+
+# Assuming build_tree and find_next functions are defined above
+run_tests()
