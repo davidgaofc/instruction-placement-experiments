@@ -1,4 +1,3 @@
-Please implement the count_islands() function to count and return the number of distinct islands in a given 2D grid. An island is formed by connecting adjacent lands (1's) horizontally and vertically, not diagonally. Utilize the provided helper functions for grid exploration and manipulation.
 
 def explore(grid, row, col, visited):
     if (row, col) in visited or row not in range(len(grid)) or col not in range(len(grid[0])) or grid[row][col] == 0:
@@ -9,7 +8,14 @@ def explore(grid, row, col, visited):
         explore(grid, row + dr, col + dc, visited)
 
 def count_islands(grid):
-    pass
+    count = 0
+    visited = set()
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == 1 and (row, col) not in visited:
+                explore(grid, row, col, visited)
+                count += 1
+    return count
 
 def is_valid(grid, row, col):
     return 0 <= row < len(grid) and 0 <= col < len(grid[0])

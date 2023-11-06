@@ -8,8 +8,7 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        #Your objective is to implement the 'findShortestPath' function, which determines the shortest path from node 's' to node 'd'. Refer to the existing methods to assist you in this endeavor.
-
+        return self.BFS(s, d)
     def BFS(self, s, d):
         visited = [False] * self.V
         queue = [(s, 0)]

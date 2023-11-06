@@ -1,5 +1,4 @@
-Complete the 'findShortestPath' method to find the quickest route from 's' to 'd'. Use the given methods as a guide.
-
+import heapq
 class Graph:
     def __init__(self, V):
         self.V = V
@@ -10,7 +9,22 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        pass
+        distance = [float('inf')] * self.V
+        distance[s] = 0
+        visited = [False] * self.V
+        pq = [(0, s)]
+        while pq:
+            dist, u = heapq.heappop(pq)
+            if visited[u]:
+                continue
+            visited[u] = True
+            if u == d:
+                return dist
+            for v in self.adj[u]:
+                if not visited[v] and dist + 1 < distance[v]:
+                    distance[v] = dist + 1
+                    heapq.heappush(pq, (dist + 1, v))
+        return float('inf')
 
     def BFS(self, s, d):
         visited = [False] * self.V

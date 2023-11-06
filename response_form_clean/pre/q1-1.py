@@ -1,5 +1,3 @@
-Write a find_next function to get the smallest number bigger than v in a tree. Start at root. If no such number exists, return None.
-
 class Node:
     def __init__(self, v, l=None, r=None):
         self.val = v; self.left = l; self.right = r
@@ -11,7 +9,14 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    pass
+    if not root:
+        return None
+
+    if root.val <= v:
+        return find_next(root.right, v, succ)
+    else:
+        succ = root
+        return find_next(root.left, v, succ) or succ
 
 def build_tree(arr):
     r = None

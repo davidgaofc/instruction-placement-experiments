@@ -8,8 +8,7 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        #Implement the 'findShortestPath' function to ascertain the most direct path between node 's' (the source) and node 'd' (the destination), utilizing the algorithms within the methods provided.
-
+        return None
     def BFS(self, s, d):
         visited = [False] * self.V
         queue = [(s, 0)]

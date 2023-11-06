@@ -3,7 +3,16 @@ class ContactBook:
         self.contacts = {}
 
     def add_contact(self, name, phone, email):
-        pass
+        if name not in self.contacts:
+            self.contacts[name] = (phone, email)
+            return f"Added {name} to contacts"
+        else:
+            old_phone, old_email = self.contacts[name]
+            if old_phone == phone and old_email == email:
+                return f"{name} already exists with the same details"
+            else:
+                self.contacts[name] = (phone, email)
+                return f"Updated {name}'s details"
 
     def list_contacts(self):
         return "\n".join(f"{n}: {p}, {e}" for n, (p, e) in sorted(self.contacts.items()))
@@ -40,5 +49,3 @@ class ContactBook:
 
     def get_all_emails(self):
         return {n: e for n, (p, e) in self.contacts.items()}
-
-Implement 'add_contact' in 'ContactBook' to regulate the contact directory. This entails validating the presence of a contact's name, updating extant details if necessary, or initializing a new profile with the provided information if not.

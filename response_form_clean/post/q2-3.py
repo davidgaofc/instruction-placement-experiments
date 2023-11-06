@@ -1,3 +1,4 @@
+import heapq
 class Graph:
     def __init__(self, V):
         self.V = V
@@ -8,7 +9,23 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        pass
+        dist = [float('inf')] * self.V
+        dist[s] = 0
+
+        minHeap = [(0, s)]
+
+        while minHeap:
+            curr_dist, u = heapq.heappop(minHeap)
+            if u == d:
+                return curr_dist
+
+            for v in self.adj[u]:
+                new_dist = curr_dist + 1
+                if new_dist < dist[v]:
+                    dist[v] = new_dist
+                    heapq.heappush(minHeap, (new_dist, v))
+
+        return float('inf')
 
     def BFS(self, s, d):
         visited = [False] * self.V
@@ -39,5 +56,3 @@ class Graph:
                     self._printAllPathsUtil(i, d, visited, path)
         path.pop()
         visited[u] = False
-
-Your objective is to implement the 'findShortestPath' function, which determines the shortest path from node 's' to node 'd'. Refer to the existing methods to assist you in this endeavor.

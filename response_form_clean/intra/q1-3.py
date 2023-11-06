@@ -9,8 +9,13 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    #Develop the function find_next to identify the smallest element in a binary search tree that remains larger than the given value v. Begin your search at the root. If there doesn't exist a larger element, the implemented function should return None.
+    if not root:
+        return succ
 
+    if root.val <= v:
+        return find_next(root.right, v, succ)
+    else:
+        return find_next(root.left, v, root)
 def build_tree(arr):
     r = None
     for x in arr: r = insert(r, x)

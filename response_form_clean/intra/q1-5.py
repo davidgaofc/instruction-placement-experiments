@@ -9,8 +9,18 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    #Implement the find_next function to systematically traverse the binary search tree from root to uncover the immediate successor element that contains a larger numeric value than the input variable v. The algorithm should meticulously search and discover the next highest integer value within the binary search tree's structure; if such an element is non-existent, the function must generate a None type.
+    # Base case: if the root is None, return the successor node
+    if not root:
+        return succ
 
+    # If the root value is equal to the input variable v
+    # or greater than v, update the successor and recurse on the left subtree
+    if root.val > v:
+        succ = root
+        return find_next(root.left, v, succ)
+
+    # Otherwise, recurse on the right subtree
+    return find_next(root.right, v, succ)
 def build_tree(arr):
     r = None
     for x in arr: r = insert(r, x)

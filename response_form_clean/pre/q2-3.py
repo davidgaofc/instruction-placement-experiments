@@ -1,4 +1,3 @@
-Your objective is to implement the 'findShortestPath' function, which determines the shortest path from node 's' to node 'd'. Refer to the existing methods to assist you in this endeavor.
 
 class Graph:
     def __init__(self, V):
@@ -10,7 +9,28 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        pass
+        visited = [False] * self.V
+        queue = [(s, 0)]
+        visited[s] = True
+        parent = {}
+
+        while queue:
+            v, dist = queue.pop(0)
+            if v == d:
+                path = [d]
+                while v != s:
+                    path.append(parent[v])
+                    v = parent[v]
+                path.reverse()
+                return path
+
+            for i in self.adj[v]:
+                if not visited[i]:
+                    queue.append((i, dist + 1))
+                    visited[i] = True
+                    parent[i] = v
+
+        return []
 
     def BFS(self, s, d):
         visited = [False] * self.V

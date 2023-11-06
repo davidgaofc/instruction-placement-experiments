@@ -1,11 +1,14 @@
-Develop the 'add_contact' method in the 'ContactBook' to maintain the ledger of contacts. If a name is already cataloged, update the existing phone and email. Otherwise, inaugurate a new entry with the provided parameters.
-
 class ContactBook:
     def __init__(self):
         self.contacts = {}
 
     def add_contact(self, name, phone, email):
-        pass
+        if name in self.contacts:
+            self.contacts[name] = (phone, email)
+            return f"{name} updated"
+        else:
+            self.contacts[name] = (phone, email)
+            return f"{name} added"
     def list_contacts(self):
         return "\n".join(f"{n}: {p}, {e}" for n, (p, e) in sorted(self.contacts.items()))
 

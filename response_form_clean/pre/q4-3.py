@@ -1,5 +1,3 @@
-You're tasked to implement the count_islands() function. This function should scan a 2D grid map composed of '1's (land) and '0's (water), identifying and counting contiguous land masses. Islands connect vertically and horizontally, not diagonally. Leverage the adjacent utility functions for traversing and marking the grid. Your goal is to accurately return the total number of islands detected in the provided grid space.
-
 def explore(grid, row, col, visited):
     if (row, col) in visited or row not in range(len(grid)) or col not in range(len(grid[0])) or grid[row][col] == 0:
         return
@@ -9,7 +7,18 @@ def explore(grid, row, col, visited):
         explore(grid, row + dr, col + dc, visited)
 
 def count_islands(grid):
-    pass
+    visited = set()
+    islands = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == '1' and (row, col) not in visited:
+                #// Visit the land mass
+                explore(grid, row, col, visited)
+                #// Increment the island count
+                islands += 1
+    #// Reset the grid to the originalstate
+    reset_grid(grid, visited)
+    return islands
 
 def is_valid(grid, row, col):
     return 0 <= row < len(grid) and 0 <= col < len(grid[0])

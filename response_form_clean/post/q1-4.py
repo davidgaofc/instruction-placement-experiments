@@ -9,11 +9,15 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    pass
+    if not root:
+        return None
+
+    if v <= root.val:
+        return find_next(root.left, v, root)
+
+    return find_next(root.right, v, succ) or succ or find_next(root.right.left, v, succ)
 
 def build_tree(arr):
     r = None
     for x in arr: r = insert(r, x)
     return r
-
-Program the find_next function to ascertain the minimal element exceeding the specified v within the binary search tree, initiating the search from root. If a superior element is non-existent, ensure the function outputs None.

@@ -1,11 +1,16 @@
-Implement the 'add_contact' function in the 'ContactBook' class to manage contacts. The function should check if a name exists in the database and update that contact's phone and email if so. If the name isn't found, it must create and store a new contact entry.
-
 class ContactBook:
     def __init__(self):
         self.contacts = {}
 
     def add_contact(self, name, phone, email):
-        pass
+        if name in self.contacts:
+            # Contact already exists, update phone and email
+            self.contacts[name] = (phone, email)
+            return f"{name}'s contact updated"
+        else:
+            # Contact doesn't exist, create a new entry
+            self.contacts[name] = (phone, email)
+            return f"{name}'s contact created"
 
     def list_contacts(self):
         return "\n".join(f"{n}: {p}, {e}" for n, (p, e) in sorted(self.contacts.items()))

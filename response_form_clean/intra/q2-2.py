@@ -8,8 +8,18 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        #Complete the 'findShortestPath' method to find the quickest route from 's' to 'd'. Use the given methods as a guide.
-
+        visited = [False] * self.V
+        queue = [(s, 0)]
+        visited[s] = True
+        while queue:
+            v, dist = queue.pop(0)
+            if v == d:
+                return dist
+            for i in self.adj[v]:
+                if not visited[i]:
+                    queue.append((i, dist + 1))
+                    visited[i] = True
+        return float('inf')
     def BFS(self, s, d):
         visited = [False] * self.V
         queue = [(s, 0)]

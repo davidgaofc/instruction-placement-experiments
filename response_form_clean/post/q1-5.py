@@ -9,11 +9,35 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    pass
+    if not root:
+        return succ
+
+    if root.val == v:
+        if root.right:
+            # If the current node has a right child,
+            # the next highest value must be in the right subtree
+            succ = find_min(root.right)
+        return succ
+
+    elif root.val > v:
+        # If the current node's value is greater than v,
+        # the next highest value must be in the left subtree,
+        # so update succ to the current node and recurse on the left subtree
+        return find_next(root.left, v, root)
+
+    else:
+        # If the current node's value is less than v,
+        # there may still be a larger value in the right subtree,
+        # so just recurse on the right subtree
+        return find_next(root.right, v, succ)
 
 def build_tree(arr):
     r = None
     for x in arr: r = insert(r, x)
     return r
 
-Implement the find_next function to systematically traverse the binary search tree from root to uncover the immediate successor element that contains a larger numeric value than the input variable v. The algorithm should meticulously search and discover the next highest integer value within the binary search tree's structure; if such an element is non-existent, the function must generate a None type.
+def find_min(root):
+    # Helper function to find the minimum value in a BST
+    if not root.left:
+        return root
+    return find_min(root.left)

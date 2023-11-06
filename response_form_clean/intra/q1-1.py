@@ -9,8 +9,17 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    #Write a find_next function to get the smallest number bigger than v in a tree. Start at root. If no such number exists, return None.
+    if not root:
+        return None
 
+    if root.val > v:
+        if succ is None or root.val < succ:
+            succ = root.val
+
+    if root.val > v:
+        return find_next(root.left, v, succ)
+    else:
+        return find_next(root.right, v, succ)
 def build_tree(arr):
     r = None
     for x in arr: r = insert(r, x)

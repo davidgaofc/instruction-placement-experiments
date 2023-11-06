@@ -7,7 +7,14 @@ def explore(grid, row, col, visited):
         explore(grid, row + dr, col + dc, visited)
 
 def count_islands(grid):
-    pass
+    visited = set()
+    count = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if (row, col) not in visited and grid[row][col] == 1:
+                count += 1
+                explore(grid, row, col, visited)
+    return count
 
 def is_valid(grid, row, col):
     return 0 <= row < len(grid) and 0 <= col < len(grid[0])
@@ -51,5 +58,3 @@ def replace(grid, target, replacement):
         for col in range(len(grid[0])):
             if grid[row][col] == target:
                 grid[row][col] = replacement
-
-Formulate the count_islands() algorithm to survey a matrix (grid of 1s and 0s, symbolizing land and water) and calculate the total enumeration of separate landmasses. Harness provided functions for complex grid traversal and ensure meticulous computation of these discrete terrestrial formations.

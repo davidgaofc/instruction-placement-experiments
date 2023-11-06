@@ -1,5 +1,3 @@
-Fill in count_islands() to count islands in a grid. Islands are groups of 1s surrounded by 0s. Use the helpers provided.
-
 def explore(grid, row, col, visited):
     if (row, col) in visited or row not in range(len(grid)) or col not in range(len(grid[0])) or grid[row][col] == 0:
         return
@@ -9,7 +7,22 @@ def explore(grid, row, col, visited):
         explore(grid, row + dr, col + dc, visited)
 
 def count_islands(grid):
-    pass
+    if not grid or not grid[0]:
+        return 0
+
+    num_rows = len(grid)
+    num_cols = len(grid[0])
+    visited = set()
+    island_count = 0
+
+    for row in range(num_rows):
+        for col in range(num_cols):
+            if grid[row][col] == 1 and (row, col) not in visited:
+                # Explore the current island
+                explore(grid, row, col, visited)
+                island_count += 1
+
+    return island_count
 
 def is_valid(grid, row, col):
     return 0 <= row < len(grid) and 0 <= col < len(grid[0])

@@ -1,4 +1,3 @@
-In the provided 'findShortestPath' method, devise an algorithm that efficiently computes the minimal sequence between vertices 's' and 'd', using the given functions as necessary.
 
 class Graph:
     def __init__(self, V):
@@ -10,7 +9,27 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        pass
+        visited = [False] * self.V
+        queue = [(s, 0)]
+        parent = {}
+        visited[s] = True
+
+        while queue:
+            v, dist = queue.pop(0)
+            if v == d:
+                path = [v]
+                while v != s:
+                    v = parent[v]
+                    path.insert(0, v)
+                return path
+
+            for i in self.adj[v]:
+                if not visited[i]:
+                    queue.append((i, dist + 1))
+                    visited[i] = True
+                    parent[i] = v
+
+        return []
 
     def BFS(self, s, d):
         visited = [False] * self.V

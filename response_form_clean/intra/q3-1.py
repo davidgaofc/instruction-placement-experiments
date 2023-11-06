@@ -3,7 +3,12 @@ class ContactBook:
         self.contacts = {}
 
     def add_contact(self, name, phone, email):
-        #Please write the code for the add_contact function. It should save the person's name, phone number, and email. If the name is new, add it. If it's already there, update the phone and email.
+        if name in self.contacts:
+            # If name exists, update the phone and email
+            self.contacts[name] = (phone, email)
+        else:
+            # If name does not exist, add the new contact
+            self.contacts[name] = (phone, email)
 
     def list_contacts(self):
         return "\n".join(f"{n}: {p}, {e}" for n, (p, e) in sorted(self.contacts.items()))

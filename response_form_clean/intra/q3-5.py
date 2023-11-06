@@ -3,8 +3,12 @@ class ContactBook:
         self.contacts = {}
 
     def add_contact(self, name, phone, email):
-        #Implement 'add_contact' in 'ContactBook' to regulate the contact directory. This entails validating the presence of a contact's name, updating extant details if necessary, or initializing a new profile with the provided information if not.
-
+        if name in self.contacts:
+            # Update existing contact
+            self.contacts[name] = (phone, email)
+        else:
+            # Add new contact
+            self.contacts[name] = (phone, email)
     def list_contacts(self):
         return "\n".join(f"{n}: {p}, {e}" for n, (p, e) in sorted(self.contacts.items()))
 

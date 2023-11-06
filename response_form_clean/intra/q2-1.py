@@ -8,7 +8,7 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        #Please write code in 'findShortestPath' to link point 's' to point 'd' in the fewest steps. Look at the other methods for hints.
+        return None
 
     def BFS(self, s, d):
         visited = [False] * self.V

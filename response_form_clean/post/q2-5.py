@@ -8,7 +8,31 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        pass
+        visited = [False] * self.V
+        queue = [(s, -1)]  # Use -1 as the initial previous vertex for the source vertex
+        visited[s] = True
+        prev = {}  # Dictionary to store the previous vertex for each visited vertex
+        while queue:
+            v, prev_v = queue.pop(0)
+            if v == d:
+                break
+            for i in self.adj[v]:
+                if not visited[i]:
+                    visited[i] = True
+                    prev[i] = v  # Store the previous vertex for i
+                    queue.append((i, v))
+
+        if d not in prev:
+            return []  # No path exists between s and d
+
+        path = []
+        current = d
+        while current != -1:  # Reconstruct the shortest path from d to s
+            path.append(current)
+            current = prev.get(current, -1)
+
+        path.reverse()  # Reverse the path to get the shortest path from s to d
+        return path
 
     def BFS(self, s, d):
         visited = [False] * self.V
@@ -39,5 +63,3 @@ class Graph:
                     self._printAllPathsUtil(i, d, visited, path)
         path.pop()
         visited[u] = False
-
-In the provided 'findShortestPath' method, devise an algorithm that efficiently computes the minimal sequence between vertices 's' and 'd', using the given functions as necessary.

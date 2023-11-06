@@ -7,8 +7,14 @@ def explore(grid, row, col, visited):
         explore(grid, row + dr, col + dc, visited)
 
 def count_islands(grid):
-    #Write the count_islands() function to calculate how many islands appear in a grid. Islands are made up of connected 1s (land) and are surrounded by 0s (water). Use the given helper functions to aid in your task. Your function should return the count of these islands.
-
+    visited = set()
+    islands = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == 1 and (row, col) not in visited:
+                islands += 1
+                explore(grid, row, col, visited)
+    return islands
 def is_valid(grid, row, col):
     return 0 <= row < len(grid) and 0 <= col < len(grid[0])
 

@@ -8,8 +8,18 @@ class Graph:
         self.adj[w].append(v)
 
     def findShortestPath(self, s, d):
-        #In the provided 'findShortestPath' method, devise an algorithm that efficiently computes the minimal sequence between vertices 's' and 'd', using the given functions as necessary.
-
+        visited = [False] * self.V
+        queue = [(s, [s])]
+        visited[s] = True
+        while queue:
+            v, path = queue.pop(0)
+            if v == d:
+                return path
+            for i in self.adj[v]:
+                if not visited[i]:
+                    queue.append((i, path + [i]))
+                    visited[i] = True
+        return []
     def BFS(self, s, d):
         visited = [False] * self.V
         queue = [(s, 0)]

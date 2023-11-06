@@ -1,4 +1,3 @@
-Create a function find_next that searches for the smallest number larger than v in a binary search tree starting from root. If there isn't one, return None.
 
 class Node:
     def __init__(self, v, l=None, r=None):
@@ -11,7 +10,14 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    pass
+    succ = None
+    while root:
+        if v < root.val:
+            succ = root
+            root = root.left
+        else:
+            root = root.right
+    return succ.val if succ else None
 
 def build_tree(arr):
     r = None

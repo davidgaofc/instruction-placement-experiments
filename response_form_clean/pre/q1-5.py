@@ -1,5 +1,3 @@
-Implement the find_next function to systematically traverse the binary search tree from root to uncover the immediate successor element that contains a larger numeric value than the input variable v. The algorithm should meticulously search and discover the next highest integer value within the binary search tree's structure; if such an element is non-existent, the function must generate a None type.
-
 class Node:
     def __init__(self, v, l=None, r=None):
         self.val = v; self.left = l; self.right = r
@@ -11,7 +9,14 @@ def insert(root, v):
     return root
 
 def find_next(root, v, succ=None):
-    pass
+    if root is None:
+        return None
+
+    if root.val > v:
+        succ = root
+        return find_next(root.left, v, succ)
+    else:
+        return find_next(root.right, v, succ) if root.right else succ
 
 def build_tree(arr):
     r = None
