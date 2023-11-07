@@ -1,5 +1,22 @@
-from response_form_clean.pre import q1_1 as q1
+from response_form_clean.pre import q1_1 as pre1
+from response_form_clean.pre import q1_2 as pre2
+from response_form_clean.pre import q1_3 as pre3
+from response_form_clean.pre import q1_4 as pre4
+from response_form_clean.pre import q1_5 as pre5
 
+from response_form_clean.post import q1_1 as post1
+from response_form_clean.post import q1_2 as post2
+from response_form_clean.post import q1_3 as post3
+from response_form_clean.post import q1_4 as post4
+from response_form_clean.post import q1_5 as post5
+
+from response_form_clean.intra import q1_1 as intra1
+from response_form_clean.intra import q1_2 as intra2
+from response_form_clean.intra import q1_3 as intra3
+from response_form_clean.intra import q1_4 as intra4
+from response_form_clean.intra import q1_5 as intra5
+
+import json
 
 test_cases = [
     ([20, 10, 30, 5, 15, 25, 35], 15, 20),  # Test in-between values
@@ -14,13 +31,32 @@ test_cases = [
     ([100, 50, 150, 25, 75, 125, 175], 160, 175) # Test value close to upper boundary
 ]
 
-def run_tests():
+def run_tests(function):
+    counter = 0
     for i, (elements, v, expected) in enumerate(test_cases, 1):
-        tree = build_tree(elements)
-        next_node = find_next(tree, v)
-        actual = next_node.val if next_node else None
-        assert actual == expected, f"Test case {i} failed: expected {expected}, got {actual}"
-        print(f"Test case {i} passed.")
+        try:
+            tree = function.build_tree(elements)
+            next_node = function.find_next(tree, v)
+            actual = next_node.val if next_node else None
+            if(actual == expected):
+                counter += 1
+            else:
+                print(f"Test {i} failed. Expected {expected}, got {actual}")
+        except:
+            pass
+    return counter
 
-# Assuming build_tree and find_next functions are defined above
-run_tests()
+test_iterator = {"pre": [pre1, pre2, pre3, pre4,pre5], "post": [post1, post2, post3, post4,post5], "intra": [intra1, intra2, intra3, intra4,intra5]}
+
+results = {}
+for key, value in test_iterator.items():
+    results[key] = []
+    for i in value:
+        results[key].append(run_tests(i))
+
+print(results)
+try:
+    with open('../results/question1.json', 'w') as json_file:
+        json.dump(results, json_file)
+except:
+    print("failed to write")
