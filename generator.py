@@ -31,4 +31,7 @@ def generate_all_prompts():
 def main():
     generate_all_prompts()
 
-main()
+if(openai.api_key == "YOUR_API_KEY"):
+    print("Please set your openai api key in the generator.py file before running the script.")
+else:
+    main()
