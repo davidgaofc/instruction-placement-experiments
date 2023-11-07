@@ -56,7 +56,7 @@ for key, value in test_iterator.items():
 
 print(results)
 try:
-    with open('../results/question1.json', 'w') as json_file:
+    with open('results/question1.json', 'w') as json_file:
         json.dump(results, json_file)
 except:
     print("failed to write")
